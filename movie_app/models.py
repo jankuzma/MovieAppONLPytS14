@@ -13,3 +13,9 @@ class Genre(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Producer(models.Model):
+    name = models.CharField(max_length=123)
+    city = models.CharField(max_length=123)
+    year = models.IntegerField()
