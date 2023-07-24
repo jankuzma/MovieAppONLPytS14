@@ -15,6 +15,7 @@
             <td>{% for error in field.errors %}{{ error }}{% endfor %}</td>
         </tr>
         {% endfor %}
+        <tr><td colspan="3">{% for error in form.non_field_errors %}{{ error }}{% endfor %}</td></tr>
         </tbody>
     </table>
     <input type="submit">

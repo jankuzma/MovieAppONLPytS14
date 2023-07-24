@@ -18,7 +18,6 @@ class AddGenreView(View):
     def get(self, request):
         return render(request, 'form.html')
 
-
     def post(self, request):
         name = request.POST.get('name')
         Genre.objects.create(name=name)
@@ -29,14 +28,14 @@ class GenreListView(View):
 
     def get(self, request):
         genres = Genre.objects.all()
-        return render(request, 'list_view.html', {'objects':genres})
+        return render(request, 'list_view.html', {'objects': genres})
 
 
 class AddPersonView(View):
 
     def get(self, request):
         form = AddPersonForm()
-        return render(request, 'form2.html', {'form':form})
+        return render(request, 'form2.html', {'form': form})
 
     def post(self, request):
         form = AddPersonForm(request.POST)
@@ -51,7 +50,7 @@ class AddProducerView(View):
 
     def get(self, request):
         form = AddProducderForm()
-        return render(request, 'form2.html', {'form':form})
+        return render(request, 'form2.html', {'form': form})
 
     def post(self, request):
         form = AddProducderForm(request.POST)
@@ -66,14 +65,11 @@ class AddMovieView(View):
 
     def get(self, request):
         form = AddMovieModelForm()
-        return render(request, 'form2.html', {'form':form})
+        return render(request, 'form2.html', {'form': form})
 
     def post(self, request):
         form = AddMovieModelForm(request.POST)
         if form.is_valid():
-            m = Movie.objects.create(title=form.cleaned_data['title'], year=form.cleaned_data['year'],
-                                 director=form.cleaned_data['director'], producer=form.cleaned_data['producer'],
-                                 )
-            m.genre.set(form.cleaned_data['genre'])
+            form.save()
             return redirect('add_movie')
         return render(request, 'form2.html', {'form': form})
