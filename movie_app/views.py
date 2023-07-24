@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect
 from django.views import View
 
-from movie_app.forms import AddPersonForm, AddProducderForm
-from movie_app.models import Genre, Person, Producer
+from movie_app.forms import AddPersonForm, AddProducderForm, AddMovieForm, AddMovieModelForm
+from movie_app.models import Genre, Person, Producer, Movie
 
 
 class IndexView(View):
@@ -59,4 +59,21 @@ class AddProducerView(View):
             Producer.objects.create(
                 **form.cleaned_data)
             return redirect('add_producer')
+        return render(request, 'form2.html', {'form': form})
+
+
+class AddMovieView(View):
+
+    def get(self, request):
+        form = AddMovieModelForm()
+        return render(request, 'form2.html', {'form':form})
+
+    def post(self, request):
+        form = AddMovieModelForm(request.POST)
+        if form.is_valid():
+            m = Movie.objects.create(title=form.cleaned_data['title'], year=form.cleaned_data['year'],
+                                 director=form.cleaned_data['director'], producer=form.cleaned_data['producer'],
+                                 )
+            m.genre.set(form.cleaned_data['genre'])
+            return redirect('add_movie')
         return render(request, 'form2.html', {'form': form})
