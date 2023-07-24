@@ -19,6 +19,9 @@ from django.urls import path
 from movie_app import views
 
 urlpatterns = [
-    path('', views.IndexView.as_view(), name='index')
+    path('', views.IndexView.as_view(), name='index'),
+    path('addGenre/', views.AddGenreView.as_view(), name='add_genre'),
+    path('listGenre/', views.GenreListView.as_view(), name='list_genre'),
+    path('addPerson/', views.AddPersonView.as_view(), name='add_person'),
 
 ]
