@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+    {{ msg }}
+    <form method="post">
+        {% csrf_token %}
+        <p><input type="text" name="first_name" placeholder="imie"></p>
+        <p><input type="text" name="last_name" placeholder="nazwisko"></p>
+        <p><input type="text" name="username" placeholder="nazwa użytkownika"></p>
+        <p><input type="password" name="password1" placeholder="hasło"></p>
+        <p><input type="password" name="password2" placeholder="hasło re"></p>
+        <p><input type="submit"></p>
+    </form>
+{% endblock %}
