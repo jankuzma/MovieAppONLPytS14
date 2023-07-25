@@ -32,6 +32,10 @@ urlpatterns = [
     path('movie/<int:id>/', views.GenreDetailView.as_view(), name='detail_genre'),
     path('genre/<int:id>/', views.MovieDetailView.as_view(), name='detail_movie'),
     path('producer/<int:id>/', views.ProducerDetailView.as_view(), name='detail_producer'),
+    path('producerGeneric/<int:pk>/', views.ProducerGenericDetailView.as_view(), name='detail_genreric_producer'),
     path('listProducer', views.ProducerListView.as_view(), name='list_producer'),
+    path('listGenericProducer', views.ProducerGenericListView.as_view(), name='list_producer'),
+    path('updateGenericProducer/<int:pk>/', views.ProducerGenericUpdateView.as_view(), name='update_producer'),
+    path('createGenreicProducer/', views.ProducerGenericCreateView.as_view(), name='create_producer'),
 
 ]

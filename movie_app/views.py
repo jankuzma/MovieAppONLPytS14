@@ -2,7 +2,9 @@ import json
 
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
+from django.urls import reverse_lazy
 from django.views import View
+from django.views.generic import DetailView, ListView, UpdateView, CreateView
 
 from movie_app.forms import AddPersonForm, AddProducderForm, AddMovieForm, AddMovieModelForm, SearchPersonForm
 from movie_app.models import Genre, Person, Producer, Movie
@@ -123,11 +125,36 @@ class ProducerDetailView(View):
         producer = Producer.objects.get(pk=id)
         return render(request, 'producer_detail.html', {'producer':producer})
 
+
+class ProducerGenericDetailView(DetailView):
+    model = Producer
+    template_name = 'producer_detail.html'
+
+class ProducerGenericUpdateView(UpdateView):
+    model = Producer
+    template_name = 'form2.html'
+    fields = '__all__'
+    success_url = reverse_lazy('detail_genreric_producer')
+class ProducerGenericCreateView(CreateView):
+    model = Producer
+    template_name = 'form2.html'
+    fields = '__all__'
+    success_url = reverse_lazy('detail_genreric_producer')
+class ProducerGenericListView(ListView):
+    model = Producer
+    template_name = 'producer_list.html'
+
+    def get_context_data(self, *, object_list=None, **kwargs): #przykład jak rozszerzyć kontekst o dodatkowe zmienne
+        context = super().get_context_data(object_list=object_list, **kwargs)
+        context['msg'] = "boli mnie bark"
+        return context
+
+
 class PersonDetailView(View):
 
     def get(self, request, id):
         person = Person.objects.get(pk=id)
-        return render(request, 'person_detail.html', {'person':person})
+        return render(request, 'person_detail.html', {'person':person, 'dupa':'ala ma kota'})
 
 
 class MovieDetailView(View):
