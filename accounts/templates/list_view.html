@@ -4,11 +4,7 @@
     <form>
         <input type="text" name="name" id="genre_name" autocomplete="off">
     </form>
-    <ul id="lista">
-        {% for obj in objects %}
-            <li> {{ obj }}</li>
-        {% endfor %}
-    </ul>
+    {% include 'list.html' with objects=genres %}
 {% endblock %}
 {% block jscript %}
     <script src="{% static 'JS/genre_search.js' %}"></script>

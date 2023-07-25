@@ -4,9 +4,5 @@
     {{ form.as_p }}
     <input type="submit">
     </form>
-    <ul>
-    {% for person in persons %}
-        <li>{{ person }}</li>
-    {% endfor %}
-    </ul>
+    {% include 'list.html' with objects=persons %}
 {% endblock %}

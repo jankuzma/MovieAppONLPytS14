@@ -11,8 +11,6 @@ from movie_app.models import Genre, Person, Producer, Movie
 class IndexView(View):
 
     def get(self, request):
-
-
         return render(request, 'base.html')
 
 
@@ -33,18 +31,20 @@ class GenreListView(View):
 
     def get(self, request):
         genres = Genre.objects.all()
-        return render(request, 'list_view.html', {'objects': genres})
+        return render(request, 'list_view.html', {'genres': genres})
+
 
 class GenreAPIListView(View):
 
     def get(self, request):
         name = request.GET.get('name', '')
         genres = Genre.objects.filter(name__icontains=name)
-        d= []
+        d = []
         for g in genres:
-            d.append({'id':g.id, 'name':g.name})
+            d.append({'id': g.id, 'name': g.name})
         # d = [{'id':g.id, 'name':g.name} for g in genres]
         return JsonResponse(d, safe=False)
+
 
 class AddPersonView(View):
 
@@ -101,4 +101,11 @@ class PersonListView(View):
             persons = persons.filter(first_name__icontains=first_name, last_name__icontains=last_name)
             if year is not None:
                 persons = persons.filter(year=year)
-        return render(request, 'person_list.html', {'persons': persons, 'form':form})
+        return render(request, 'person_list.html', {'persons': persons, 'form': form})
+
+
+class MovieListView(View):
+
+    def get(self, request):
+        movies = Movie.objects.all()
+        return render(request, 'movie_list.html', {'movies': movies})
