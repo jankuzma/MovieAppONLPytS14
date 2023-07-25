@@ -1,3 +1,6 @@
+import json
+
+from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.views import View
 
@@ -32,6 +35,16 @@ class GenreListView(View):
         genres = Genre.objects.all()
         return render(request, 'list_view.html', {'objects': genres})
 
+class GenreAPIListView(View):
+
+    def get(self, request):
+        name = request.GET.get('name', '')
+        genres = Genre.objects.filter(name__icontains=name)
+        d= []
+        for g in genres:
+            d.append({'id':g.id, 'name':g.name})
+        # d = [{'id':g.id, 'name':g.name} for g in genres]
+        return JsonResponse(d, safe=False)
 
 class AddPersonView(View):
 

@@ -26,5 +26,6 @@ urlpatterns = [
     path('addProducer/', views.AddProducerView.as_view(), name='add_producer'),
     path('addMovie/', views.AddMovieView.as_view(), name='add_movie'),
     path('listPerson/', views.PersonListView.as_view(), name='list_person'),
+    path('apiGenreList/', views.GenreAPIListView.as_view(), name='api_genre_list')
 
 ]
