@@ -1,12 +1,10 @@
-import json
-
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views import View
 from django.views.generic import DetailView, ListView, UpdateView, CreateView
 
-from movie_app.forms import AddPersonForm, AddProducderForm, AddMovieForm, AddMovieModelForm, SearchPersonForm
+from movie_app.forms import AddPersonForm, AddProducderForm, AddMovieModelForm, SearchPersonForm
 from movie_app.models import Genre, Person, Producer, Movie
 
 
