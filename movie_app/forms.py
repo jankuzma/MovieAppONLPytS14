@@ -17,6 +17,12 @@ class AddPersonForm(forms.Form):
     last_name = forms.CharField(max_length=123)
     year = forms.IntegerField()
 
+class SearchPersonForm(forms.Form):
+    first_name = forms.CharField(max_length=123, required=False)
+    last_name = forms.CharField(max_length=123, required=False)
+    year = forms.IntegerField(required=False)
+
+
 class AddProducderForm(forms.Form):
     name = forms.CharField(max_length=123, validators=[is_capitalized])
     city = forms.CharField(max_length=123, validators=[is_capitalized])

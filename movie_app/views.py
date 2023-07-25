@@ -1,13 +1,15 @@
 from django.shortcuts import render, redirect
 from django.views import View
 
-from movie_app.forms import AddPersonForm, AddProducderForm, AddMovieForm, AddMovieModelForm
+from movie_app.forms import AddPersonForm, AddProducderForm, AddMovieForm, AddMovieModelForm, SearchPersonForm
 from movie_app.models import Genre, Person, Producer, Movie
 
 
 class IndexView(View):
 
     def get(self, request):
+
+
         return render(request, 'base.html')
 
 
@@ -73,3 +75,17 @@ class AddMovieView(View):
             form.save()
             return redirect('add_movie')
         return render(request, 'form2.html', {'form': form})
+
+
+class PersonListView(View):
+    def get(self, request):
+        persons = Person.objects.all()
+        form = SearchPersonForm(request.GET)
+        if form.is_valid():
+            first_name = form.cleaned_data.get('first_name', '')
+            last_name = form.cleaned_data.get('last_name', '')
+            year = form.cleaned_data.get('year')
+            persons = persons.filter(first_name__icontains=first_name, last_name__icontains=last_name)
+            if year is not None:
+                persons = persons.filter(year=year)
+        return render(request, 'person_list.html', {'persons': persons, 'form':form})
