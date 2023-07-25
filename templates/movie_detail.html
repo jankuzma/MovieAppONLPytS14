@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+    <ul>
+        <li>
+            tytuł - {{ movie.title }}
+        </li>
+        <li>
+            rok produkcji - {{ movie.year }}
+        </li>
+        <li>
+            reżyser - {{ movie.director }}
+        </li>
+        <li>
+            garunki - {% for genre in movie.genre.all %} {{ genre }} {% endfor %}
+        </li>
+        <li>
+            wytwornia - {{ movie.producer }}
+        </li>
+    </ul>
+{% endblock %}

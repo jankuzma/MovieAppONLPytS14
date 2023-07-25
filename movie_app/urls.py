@@ -28,5 +28,10 @@ urlpatterns = [
     path('listPerson/', views.PersonListView.as_view(), name='list_person'),
     path('apiGenreList/', views.GenreAPIListView.as_view(), name='api_genre_list'),
     path('listMovie/', views.MovieListView.as_view(), name='list_movie'),
+    path('person/<int:id>/', views.PersonDetailView.as_view(), name='detail_person'),
+    path('movie/<int:id>/', views.GenreDetailView.as_view(), name='detail_genre'),
+    path('genre/<int:id>/', views.MovieDetailView.as_view(), name='detail_movie'),
+    path('producer/<int:id>/', views.ProducerDetailView.as_view(), name='detail_producer'),
+    path('listProducer', views.ProducerListView.as_view(), name='list_producer'),
 
 ]

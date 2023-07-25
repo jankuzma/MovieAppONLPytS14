@@ -6,6 +6,7 @@ from django.shortcuts import render, redirect
 from django.views import View
 
 from accounts.forms import RegisterForm
+from movie_app.models import Person
 
 
 # Create your views here.
@@ -44,3 +45,5 @@ class RegisterView(View):
             user.save()
             return redirect('index')
         return render(request, 'form2.html',{'form':form})
+
+

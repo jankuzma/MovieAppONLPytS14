@@ -109,3 +109,36 @@ class MovieListView(View):
     def get(self, request):
         movies = Movie.objects.all()
         return render(request, 'movie_list.html', {'movies': movies})
+
+
+class ProducerListView(View):
+
+    def get(self, request):
+        producers = Movie.objects.all()
+        return render(request, 'producer_list.html', {'producers': producers})
+
+class ProducerDetailView(View):
+
+    def get(self, request, id):
+        producer = Producer.objects.get(pk=id)
+        return render(request, 'producer_detail.html', {'producer':producer})
+
+class PersonDetailView(View):
+
+    def get(self, request, id):
+        person = Person.objects.get(pk=id)
+        return render(request, 'person_detail.html', {'person':person})
+
+
+class MovieDetailView(View):
+
+    def get(self, request, id):
+        movie = Movie.objects.get(pk=id)
+        return render(request, 'movie_detail.html', {'movie':movie})
+
+
+class GenreDetailView(View):
+
+    def get(self, request, id):
+        genre = Genre.objects.get(pk=id)
+        return render(request, 'genre_detail.html', {'genre':genre})
