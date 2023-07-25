@@ -17,4 +17,11 @@
             wytwornia - {{ movie.producer }}
         </li>
     </ul>
+    <a href="{% url 'add_comment' movie.id %}">Dodaj komentarz</a>
+    <h1>comments:</h1>
+    <ul>
+        {% for comment in movie.comment_set.all %}
+            <li><p>{{ comment.text }}</p><small>{{ comment.date }} {{ comment.creator }}</small></li>
+        {% endfor %}
+    </ul>
 {% endblock %}

@@ -1,10 +1,11 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views import View
 from django.views.generic import DetailView, ListView, UpdateView, CreateView
 
-from movie_app.forms import AddPersonForm, AddProducderForm, AddMovieModelForm, SearchPersonForm
+from movie_app.forms import AddPersonForm, AddProducderForm, AddMovieModelForm, SearchPersonForm, AddCommentToMovieForm
 from movie_app.models import Genre, Person, Producer, Movie
 
 
@@ -167,3 +168,20 @@ class GenreDetailView(View):
     def get(self, request, id):
         genre = Genre.objects.get(pk=id)
         return render(request, 'genre_detail.html', {'genre':genre})
+
+
+class AddCommentToMovieView(LoginRequiredMixin, View):
+
+    def get(self, request, id_movie):
+        form = AddCommentToMovieForm()
+        return render(request, 'form2.html', {'form':form})
+
+    def post(self, request, id_movie):
+        form = AddCommentToMovieForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.movie = Movie.objects.get(pk=id_movie)
+            comment.creator = request.user
+            comment.save()
+            return redirect('detail_movie', id_movie)
+        return render(request, 'form2.html', {'form': form})

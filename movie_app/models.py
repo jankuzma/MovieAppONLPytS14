@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.db import models
 from django.urls import reverse
 
@@ -51,5 +52,10 @@ class Movie(models.Model):
     def __str__(self):
         return self.title
 
+class Comment(models.Model):
+    movie = models.ForeignKey(Movie, on_delete=models.CASCADE)
+    creator = models.ForeignKey(User, on_delete=models.CASCADE)
+    text = models.TextField()
+    date = models.DateTimeField(auto_now=True)
 
 

@@ -1,7 +1,7 @@
 from django import forms
 from django.core.exceptions import ValidationError
 
-from movie_app.models import Person, Producer, Genre, Movie
+from movie_app.models import Person, Producer, Genre, Movie, Comment
 
 
 def is_capitalized(value):
@@ -41,3 +41,10 @@ class AddMovieModelForm(forms.ModelForm):
     class Meta:
         model = Movie
         fields = '__all__'
+
+
+class AddCommentToMovieForm(forms.ModelForm):
+
+    class Meta:
+        model = Comment
+        fields = ['text']
