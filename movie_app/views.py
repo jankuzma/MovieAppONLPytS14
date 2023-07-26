@@ -1,4 +1,4 @@
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
@@ -163,7 +163,8 @@ class MovieDetailView(View):
         return render(request, 'movie_detail.html', {'movie':movie})
 
 
-class GenreDetailView(View):
+class GenreDetailView(PermissionRequiredMixin, View):
+    permission_required = ['movie_app.view_genre']
 
     def get(self, request, id):
         genre = Genre.objects.get(pk=id)

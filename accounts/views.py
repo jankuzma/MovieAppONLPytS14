@@ -4,6 +4,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 from django.views import View
+from django.views.generic import ListView
 
 from accounts.forms import RegisterForm
 from movie_app.models import Person
@@ -20,7 +21,8 @@ class LoginView(View):
         user = authenticate(request, username=username, password=password)  # autentykacja
         if user is not None:
             login(request, user)  # autoryzacja
-            return redirect('index')
+            redirect_url = request.GET.get('next', 'index')
+            return redirect(redirect_url)
         return render(request, 'accounts/login.html')
 
 
@@ -45,5 +47,12 @@ class RegisterView(View):
             user.save()
             return redirect('index')
         return render(request, 'form2.html',{'form':form})
+
+
+
+class UserListView(ListView):
+
+    model = User
+    template_name = 'accounts/user_list.html'
 
 
